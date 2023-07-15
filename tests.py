@@ -9,7 +9,7 @@ def test_to_date():
     assert app._to_date('2022-09-01') == dt.date(2022, 9, 1)
 
 def test_to_date_exception():
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match='12345 is not in YYYY-MM-DD format.'):
         app._to_date('12345')
 
 @pytest.mark.parametrize('test_input, expected',[
