@@ -23,3 +23,8 @@ def test_to_date_exception():
     ])
 def test_find_task(test_input, expected, task_list):
     assert app._find_task(test_input, task_list) == expected
+
+def test_save_load_task_list(task_list):
+    app._save_task_list(task_list)
+    load_list = app._get_task_list()
+    assert task_list == load_list
