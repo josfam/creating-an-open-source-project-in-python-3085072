@@ -46,7 +46,7 @@ def _find_task(target: str, task_list: List[Task]) -> Optional[Task]:
             return task
 
 
-def _find_match(target: str):
+def _find_match(target: str, task_list: List[Task]):
     potential_match = []
     for task in task_list:
         score = SM(None, target, task.name).ratio()
@@ -103,7 +103,7 @@ def remove(task: str):
     if target is not None:
         task_list.remove(target)
     else:
-        _find_match(task)
+        _find_match(task, task_list)
     _save_task_list(task_list)
 
 
