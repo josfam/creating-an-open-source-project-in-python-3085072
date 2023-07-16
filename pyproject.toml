@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "oss-in-python"
+name = "reminder"
 version = "0.1.0"
 description = "My first open source/poetry project in python"
 authors = ["josfam <josephamukun@tutanota.com>"]
