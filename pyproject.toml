@@ -8,7 +8,7 @@ readme = "README.md"
 packages = []
 
 [tool.poetry.dependencies]
-python = ">=3.10"
+python = ">=3.8.1"
 click = "^8.1.0"
 
 
