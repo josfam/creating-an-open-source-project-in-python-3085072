@@ -8,7 +8,12 @@ import pytest
 
 @pytest.fixture
 def task_list():
-    return [Task(name='pay rent'), Task(name='buy bread')]
+    return [
+        Task(name='pay rent'),
+        Task(name='buy bread'),
+        Task(name='build cabin', deadline='2025-01-01'),
+        Task(name='update all software', deadline='2000-01-01'),
+    ]
 
 
 def test_to_date():
@@ -39,3 +44,12 @@ def test_save_load_task_list(task_list):
     app._save_task_list(task_list)
     load_list = app._get_task_list()
     assert task_list == load_list
+
+
+def test_overdue(task_list):
+    task = app._find_task('update all software', task_list)
+    assert app._overdue(app._to_date(task.deadline))
+    task = app._find_task('build cabin', task_list)
+    assert not app._overdue(app._to_date(task.deadline))
+    task = app._find_task('pay rent', task_list)
+    assert not app._overdue(task.deadline)
