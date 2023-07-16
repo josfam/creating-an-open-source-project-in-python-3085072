@@ -12,8 +12,8 @@ def task_list():
     return [
         Task(name='pay rent'),
         Task(name='buy bread'),
-        Task(name='build cabin', deadline='2025-01-01'),
-        Task(name='update all software', deadline='2000-01-01'),
+        Task(name='build cabin', deadline=dt.date(2025, 1, 1)),
+        Task(name='update all software', deadline=dt.date(2000, 1, 1)),
     ]
 
 
@@ -49,9 +49,9 @@ def test_save_load_task_list(task_list):
 
 def test_overdue(task_list):
     task = app._find_task('update all software', task_list)
-    assert app._overdue(app._to_date(task.deadline))
+    assert app._overdue(task.deadline)
     task = app._find_task('build cabin', task_list)
-    assert not app._overdue(app._to_date(task.deadline))
+    assert not app._overdue(task.deadline)
     task = app._find_task('pay rent', task_list)
     assert not app._overdue(task.deadline)
 
