@@ -5,7 +5,7 @@ description = "My first open source/poetry project in python"
 authors = ["josfam <josephamukun@tutanota.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "oss_in_python"}]
+packages = []
 
 [tool.poetry.dependencies]
 python = ">=3.10"
