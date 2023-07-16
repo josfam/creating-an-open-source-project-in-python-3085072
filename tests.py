@@ -60,10 +60,7 @@ def test_add_task(task_list):
     runner = CliRunner()
     result = runner.invoke(app.add, ['pay rent'])
     assert 'already in the list.' in result.output
-    runner = CliRunner()
-    result = runner.invoke(app.add, ['do laundry'])
-    loaded_list = app._get_task_list()
-    assert Task(name='do laundry') in loaded_list
-    runner = CliRunner()
+    runner.invoke(app.add, ['do laundry'])
+    assert Task(name='do laundry') in app._get_task_list()
     runner.invoke(app.add, ['add films to diary', '--deadline', '2023-12-25'])
     assert Task(name='add films to diary', deadline=dt.date(2023, 12, 25)) in app._get_task_list()
