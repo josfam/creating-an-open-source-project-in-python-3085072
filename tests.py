@@ -1,5 +1,6 @@
 import reminder as app
 from reminder import Task
+from click.testing import CliRunner
 
 import datetime as dt
 
@@ -53,3 +54,13 @@ def test_overdue(task_list):
     assert not app._overdue(app._to_date(task.deadline))
     task = app._find_task('pay rent', task_list)
     assert not app._overdue(task.deadline)
+
+
+def test_add_task(task_list):
+    runner = CliRunner()
+    result = runner.invoke(app.add, ['pay rent'])
+    assert 'already in the list.' in result.output
+    runner = CliRunner()
+    result = runner.invoke(app.add, ['do laundry'])
+    loaded_list = app._get_task_list()
+    assert Task(name='do laundry') in loaded_list
