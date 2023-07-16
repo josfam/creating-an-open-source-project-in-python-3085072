@@ -5,6 +5,8 @@ import datetime as dt
 
 import pytest
 
+def test_overdue():
+    assert not app._overdue(None)
 
 @pytest.fixture
 def task_list():
