@@ -11,7 +11,6 @@ packages = []
 python = ">=3.8.1"
 click = "^8.1.0"
 
-
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.0"
 black = "^23.7.0"
