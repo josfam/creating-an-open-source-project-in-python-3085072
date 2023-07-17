@@ -78,3 +78,10 @@ def test_remove(task_list):
     runner.invoke(app.remove, ['update all software'])
     loaded = app._get_task_list()
     assert not Task(name='update all software') in loaded
+
+
+def test_done(task_list):
+    runner = CliRunner()
+    runner.invoke(app.done, ['add films to diary'])
+    done = Task(name='add films to diary', deadline=dt.date(2023, 12, 25), done=True)
+    assert done in app._get_task_list()
