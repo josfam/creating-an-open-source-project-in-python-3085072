@@ -75,6 +75,6 @@ def test_list_tasks(task_list):
 
 def test_remove(task_list):
     runner = CliRunner()
-    runner.invoke(app.remove, 'update all software')
+    runner.invoke(app.remove, ['update all software'])
     loaded = app._get_task_list()
-    Task(name='update all software') not in loaded
+    assert not Task(name='update all software') in loaded
