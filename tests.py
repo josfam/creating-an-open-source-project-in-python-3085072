@@ -71,3 +71,10 @@ def test_list_tasks(task_list):
     result = runner.invoke(app.list)
     for num, task in enumerate(task_list, start=1):
         assert f'{num}. {task.name}' in result.output
+
+
+def test_remove(task_list):
+    runner = CliRunner()
+    runner.invoke(app.remove, 'update all software')
+    loaded = app._get_task_list()
+    Task(name='update all software') not in loaded
