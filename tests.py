@@ -8,6 +8,11 @@ import pytest
 
 
 @pytest.fixture
+def cli_runner():
+    return CliRunner()
+
+
+@pytest.fixture
 def task_list():
     return [
         Task(name='pay rent'),
@@ -56,32 +61,28 @@ def test_overdue(task_list):
     assert not app._overdue(task.deadline)
 
 
-def test_add_task(task_list):
-    runner = CliRunner()
-    result = runner.invoke(app.add, ['pay rent'])
+def test_add_task(task_list, cli_runner):
+    result = cli_runner.invoke(app.add, ['pay rent'])
     assert 'already in the list.' in result.output
-    runner.invoke(app.add, ['do laundry'])
+    cli_runner.invoke(app.add, ['do laundry'])
     assert Task(name='do laundry') in app._get_task_list()
-    runner.invoke(app.add, ['add films to diary', '--deadline', '2023-12-25'])
+    cli_runner.invoke(app.add, ['add films to diary', '--deadline', '2023-12-25'])
     assert Task(name='add films to diary', deadline=dt.date(2023, 12, 25)) in app._get_task_list()
 
 
-def test_list_tasks(task_list):
-    runner = CliRunner()
-    result = runner.invoke(app.list)
+def test_list_tasks(task_list, cli_runner):
+    result = cli_runner.invoke(app.list)
     for num, task in enumerate(task_list, start=1):
         assert f'{num}. {task.name}' in result.output
 
 
-def test_remove(task_list):
-    runner = CliRunner()
-    runner.invoke(app.remove, ['update all software'])
+def test_remove(task_list, cli_runner):
+    cli_runner.invoke(app.remove, ['update all software'])
     loaded = app._get_task_list()
     assert not Task(name='update all software') in loaded
 
 
-def test_done(task_list):
-    runner = CliRunner()
-    runner.invoke(app.done, ['add films to diary'])
+def test_done(task_list, cli_runner):
+    cli_runner.invoke(app.done, ['add films to diary'])
     done = Task(name='add films to diary', deadline=dt.date(2023, 12, 25), done=True)
     assert done in app._get_task_list()
